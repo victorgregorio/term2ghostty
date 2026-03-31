@@ -19,15 +19,23 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+## Export your profile
+
+1. Open **Terminal → Settings** (or Preferences on older macOS)
+2. Select the **Profiles** tab
+3. Choose the profile you want to convert
+4. Click the **⚙ (gear)** menu at the bottom of the profile list and choose **Export...**
+5. Save the resulting `.terminal` file somewhere convenient
+
 ## Usage
 
 ```bash
 # Output filename is derived automatically:
-# "Custom Pro Flat.terminal" → "custom-pro-flat.ghostty" in the same directory
-python term2ghostty.py "Custom Pro Flat.terminal"
+# "Pro.terminal" → "pro.ghostty" in the same directory
+python term2ghostty.py "Pro.terminal"
 
 # Specify an output file explicitly
-python term2ghostty.py "Custom Pro Flat.terminal" my-theme.ghostty
+python term2ghostty.py "Pro.terminal" my-theme.ghostty
 ```
 
 ## What gets converted
