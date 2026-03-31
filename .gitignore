@@ -1,0 +1,9 @@
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.DS_Store
+
+# Terminal profiles and generated Ghostty configs
+*.terminal
+*.ghostty
