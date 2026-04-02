@@ -155,6 +155,7 @@ def parse_terminal_file(path: Path) -> dict:
         'font_size': None,
         'window_width': None,
         'window_height': None,
+        'cursor_style': None,
         'cursor_blink': None,
         'warnings': warnings,
     }
@@ -194,6 +195,9 @@ def parse_terminal_file(path: Path) -> dict:
         result['window_width'] = int(plist['columnCount'])
     if 'rowCount' in plist:
         result['window_height'] = int(plist['rowCount'])
+    cursor_type = plist.get('CursorType', 0)
+    _CURSOR_STYLE_MAP = {0: 'block', 1: 'underline', 2: 'bar'}
+    result['cursor_style'] = _CURSOR_STYLE_MAP.get(int(cursor_type), 'block')
     if 'BlinkText' in plist:
         result['cursor_blink'] = bool(plist['BlinkText'])
 
@@ -242,9 +246,14 @@ def generate_ghostty_config(settings: dict) -> str:
         lines.extend(dim_lines)
         lines.append('')
 
+    cursor_lines = []
+    if settings['cursor_style'] is not None:
+        cursor_lines.append(f'cursor-style = {settings["cursor_style"]}')
     if settings['cursor_blink'] is not None:
-        lines.append('# Behavior')
-        lines.append(f'cursor-style-blink = {str(settings["cursor_blink"]).lower()}')
+        cursor_lines.append(f'cursor-style-blink = {str(settings["cursor_blink"]).lower()}')
+    if cursor_lines:
+        lines.append('# Cursor')
+        lines.extend(cursor_lines)
         lines.append('')
 
     for warning in settings.get('warnings', []):
