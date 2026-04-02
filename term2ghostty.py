@@ -249,6 +249,7 @@ def generate_ghostty_config(settings: dict) -> str:
     cursor_lines = []
     if settings['cursor_style'] is not None:
         cursor_lines.append(f'cursor-style = {settings["cursor_style"]}')
+        cursor_lines.append('shell-integration-features = no-cursor')
     if settings['cursor_blink'] is not None:
         cursor_lines.append(f'cursor-style-blink = {str(settings["cursor_blink"]).lower()}')
     if cursor_lines:
